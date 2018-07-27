@@ -6,8 +6,9 @@ import com.luv2code.hibernate.demo.entity.InstructorDetail;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
+import org.hibernate.query.Query;
 
-public class EagerLasyDemo {
+public class FethJoinDemo {
     public static void main(String[] args) {
         //create session factory
         SessionFactory factory= (SessionFactory) new Configuration()
@@ -26,14 +27,23 @@ public class EagerLasyDemo {
 
             //get the instructor from db
             int theId=1;
-            Instructor tempInstructor=session.get(Instructor.class,theId);
 
+            Query<Instructor> query=
+                     session.createQuery("select i from Instructor i "
+                                    + "JOIN fetch  i.courses "
+                                    + "where i.id=:theInstructorId",
+                                    Instructor.class);
+
+            //set paramether on query
+            ((org.hibernate.query.Query) query).
+                    setParameter("theInstructorId", theId);
+            //execute query and get instructor
+            Instructor tempInstructor = query.getSingleResult();
             System.out.println("luv to code "+"Instuctor :"+tempInstructor);
 
 
 
 
-            System.out.println("luv to code "+"Courses: "+ tempInstructor.getCourses());
 
             session.getTransaction().commit();
 
