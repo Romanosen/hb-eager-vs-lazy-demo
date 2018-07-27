@@ -28,15 +28,15 @@ public class EagerLasyDemo {
             int theId=1;
             Instructor tempInstructor=session.get(Instructor.class,theId);
 
-            System.out.println("Instuctor :"+tempInstructor);
+            System.out.println("luv to code "+"Instuctor :"+tempInstructor);
 
-            System.out.println("Courses: "+ tempInstructor.getCourses());
+            System.out.println("luv to code "+"Courses: "+ tempInstructor.getCourses());
 
 
 
             session.getTransaction().commit();
 
-            System.out.println("Done!");
+            System.out.println("luv to code "+"Done!");
 
         }
         finally {
